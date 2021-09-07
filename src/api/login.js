@@ -3,8 +3,8 @@ import User from '../models/userModel.js'
 import asyncHandler from 'express-async-handler'
 import generateToken from '../auth/genrateToken.js'
 
-//*@desc Auth the user
-//*@Api GET /api/v1/login
+//*@desc login the user
+//*@Api POST /api/v1/login
 //*@Access Public
 
 const router = express.Router()
@@ -12,12 +12,12 @@ const router = express.Router()
 router.post(
   '/login',
   asyncHandler(async (req, res) => {
-    const { number } = req.body
+    const { number, pin } = req.body
     const user = await User.findOne({ number })
 
     if (!user) return res.status(400).json({ message: 'User is not found !' })
 
-    if (user) {
+    if (user && pin && pin === user.pin) {
       res.json({
         _id: user._id,
         number: user.number,
