@@ -65,6 +65,10 @@ const upload = multer({
   storage: Storage,
 }).single('image') //name of input (frontend)
 
+//*@desc To upload an image
+//*@Api PUt /api/v1/nationalidimg/:id
+//*@Access public
+
 router.put(
   '/nationalidimg/:id',
   asyncHandler(async (req, res) => {
