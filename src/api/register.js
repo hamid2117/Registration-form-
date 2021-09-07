@@ -6,6 +6,10 @@ import multer from 'multer'
 
 const router = express.Router()
 
+//*@desc To create a user
+//*@Api POST /api/v1/register
+//*@Access Public
+
 router.post(
   '/register',
   asyncHandler(async (req, res) => {
@@ -20,12 +24,12 @@ router.post(
       pin,
     } = req.body
 
-    const alreadyExist = await User.findOne({ email })
+    const alreadyExist = await User.findOne({ number })
 
     if (alreadyExist) {
       return res
         .status(409)
-        .json({ status: 'error', error: 'email already in use' })
+        .json({ status: 'error', error: 'number already in use' })
     } else {
       const user = await User.create({
         firstName,
