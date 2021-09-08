@@ -9,7 +9,7 @@ const userSchema = mongoose.Schema(
     birthday: { type: String, required: true },
     city: { type: String, required: true },
     gender: { type: String, required: true },
-    pin: { type: Number, required: true },
+    pin: { type: String, required: true },
     img: { type: String },
     expireDate: { type: String },
   },
