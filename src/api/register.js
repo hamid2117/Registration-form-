@@ -66,8 +66,8 @@ const upload = multer({
 }).single('image') //name of input (frontend)
 
 //*@desc To upload an image
-//*@Api PUt /api/v1/nationalidimg/:id
-//*@Access public
+//*@Api PUT /api/v1/nationalidimg/:id   (User id )
+//*@Access private (no token needed)
 
 router.put(
   '/nationalidimg/:id',
@@ -78,11 +78,13 @@ router.put(
       upload(req, res, async (err) => {
         if (err) {
           console.log(err)
+          console.log(req.file)
           res.status(380).json(err)
         } else {
           user.img = req.file.path
+          console.log(req.file)
           await user.save()
-          res.status(205).json(user)
+          res.status(205).json(req.file.path)
         }
       })
     } else {

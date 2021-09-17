@@ -19,13 +19,10 @@ router.post(
 
     if (user && pin && pin === user.pin) {
       res.json({
-        _id: user._id,
         number: user.number,
         firstName: user.firstName,
         lastName: user.lastName,
-        gender: user.gender,
-        city: user.city,
-        email: user.email,
+        isAdmin: user.isAdmin,
         token: generateToken(user._id),
       })
     } else {

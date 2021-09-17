@@ -12,6 +12,7 @@ const userSchema = mongoose.Schema(
     pin: { type: String, required: true },
     img: { type: String },
     expireDate: { type: String },
+    isAdmin: { type: Boolean, required: true, default: false },
   },
   { timestamps: true }
 )
