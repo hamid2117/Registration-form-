@@ -6,6 +6,7 @@ import bodyParser from 'body-parser'
 import './models/userModel.js'
 import dotenv from 'dotenv'
 import connectDB from './config/db.js'
+import path from 'path'
 dotenv.config()
 connectDB()
 
@@ -13,12 +14,14 @@ import middlewares from './middlewares.js'
 import api from './api/index.js'
 const app = express()
 
+//for image uploads
+const __dirname = path.resolve()
+app.use('/uploads', express.static(path.join(__dirname, '/uploads')))
 //to accept data from req.body (which is used in login to get email and password )
 
 app.use(bodyParser.urlencoded({ extended: true }))
 app.use(bodyParser.json())
 //..
-
 app.use(morgan('dev'))
 app.use(helmet())
 app.use(cors())

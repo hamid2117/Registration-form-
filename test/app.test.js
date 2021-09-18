@@ -1,6 +1,6 @@
-const request = require('supertest');
+const request = require('supertest')
 
-const app = require('../src/app');
+const app = require('../src/app')
 
 describe('app', () => {
   it('responds with a not found message', (done) => {
@@ -8,9 +8,9 @@ describe('app', () => {
       .get('/what-is-this-even')
       .set('Accept', 'application/json')
       .expect('Content-Type', /json/)
-      .expect(404, done);
-  });
-});
+      .expect(404, done)
+  })
+})
 
 describe('GET /', () => {
   it('responds with a json message', (done) => {
@@ -18,8 +18,12 @@ describe('GET /', () => {
       .get('/')
       .set('Accept', 'application/json')
       .expect('Content-Type', /json/)
-      .expect(200, {
-        message: '🦄🌈✨👋🌎🌍🌏✨🌈🦄'
-      }, done);
-  });
-});
+      .expect(
+        200,
+        {
+          message: '🦄🌈✨👋🌎🌍🌏✨🌈🦄',
+        },
+        done
+      )
+  })
+})
