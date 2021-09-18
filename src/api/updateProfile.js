@@ -10,6 +10,20 @@ import { protect } from './../auth/authMiddleware.js'
 
 const router = express.Router()
 
+router.get(
+  '/profile',
+  protect,
+  asyncHandler(async (req, res) => {
+    const user = await User.findById(req.user._id)
+
+    if (user) {
+      res.status(200).json(user)
+    } else {
+      res.status(404)
+      throw new Error('User not Found')
+    }
+  })
+)
 router.put(
   '/profile',
   protect,
@@ -25,6 +39,7 @@ router.put(
       user.gender = req.body.gender || user.gender
       user.birthday = req.body.birthday || user.birthday
       user.expireDate = req.body.expireDate || user.expireDate
+      user.img = req.body.img || user.img
       user.pin = req.body.pin || user.pin
       const updatedUser = await user.save()
 
@@ -37,6 +52,7 @@ router.put(
         city: updatedUser.city,
         gender: updatedUser.gender,
         expireDate: updatedUser.expireDate,
+        img: updatedUser.img,
         token: generateToken(user._id),
       })
     } else {

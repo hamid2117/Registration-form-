@@ -22,7 +22,7 @@ router.post(
         number: user.number,
         firstName: user.firstName,
         lastName: user.lastName,
-        isAdmin: user.isAdmin,
+        type: user.type,
         token: generateToken(user._id),
       })
     } else {
