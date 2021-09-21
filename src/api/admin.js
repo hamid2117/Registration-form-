@@ -11,7 +11,7 @@ router.get(
   // admin,
   asyncHandler(async (req, res) => {
     console.log(req.params.path)
-    res.download('./public/' + req.params.path)
+    res.download('./uploads/' + req.params.path)
   })
 )
 

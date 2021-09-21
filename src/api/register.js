@@ -2,9 +2,6 @@ import express from 'express'
 import User from '../models/userModel.js'
 import asyncHandler from 'express-async-handler'
 import { upload } from '../auth/uploadMiddleware.js'
-// import path from 'path'
-// import multer from 'multer'
-
 const router = express.Router()
 
 //*@desc To create a user
@@ -21,8 +18,10 @@ router.post(
       city,
       birthday,
       number,
+      cardImage,
       gender,
       pin,
+      expireDate,
     } = req.body
 
     const alreadyExist = await User.findOne({ number })
@@ -38,9 +37,11 @@ router.post(
           secondName,
           number,
           birthday,
+          cardImage,
           city,
           gender,
           email,
+          expireDate,
           pin,
           img: req.body.img,
         })
@@ -52,10 +53,12 @@ router.post(
           firstName,
           secondName,
           number,
+          cardImage,
           birthday,
           city,
           gender,
           email,
+          expireDate,
           pin,
         })
         if (user) {
@@ -77,4 +80,13 @@ router.post(
 router.post('/upload', upload.single('image'), (req, res) => {
   res.send(`/${req.file.path}`)
 })
+
+//*@desc To upload an cardimage
+//*@Api PUT /api/v1/cardimage
+//*@Access private (no token needed)
+
+router.post('/cardimage', upload.single('card'), (req, res) => {
+  res.send(`/${req.file.path}`)
+})
+
 export default router

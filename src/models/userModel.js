@@ -11,6 +11,7 @@ const userSchema = mongoose.Schema(
     gender: { type: String, required: true },
     pin: { type: String, required: true },
     img: { type: String },
+    cardImage: { type: String },
     expireDate: { type: String },
     type: { type: String, required: true, default: 'user' },
   },
