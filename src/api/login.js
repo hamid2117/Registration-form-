@@ -16,6 +16,9 @@ router.post(
     const user = await User.findOne({ number })
 
     if (!user) return res.status(400).json({ message: 'User is not found !' })
+    if (!user.confirmation) {
+      return res.status(490).json({ message: 'please confirm you Number  !' })
+    }
 
     if (user && pin && (await user.matchpin(pin))) {
       res.json({

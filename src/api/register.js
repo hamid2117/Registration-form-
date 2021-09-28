@@ -2,6 +2,9 @@ import express from 'express'
 import User from '../models/userModel.js'
 import asyncHandler from 'express-async-handler'
 import { upload } from '../auth/uploadMiddleware.js'
+import { sendSms } from '../auth/numbermsg.js'
+import generateToken from '../auth/genrateToken.js'
+
 const router = express.Router()
 
 //*@desc To create a user
@@ -10,6 +13,7 @@ const router = express.Router()
 
 router.post(
   '/register',
+  sendSms,
   asyncHandler(async (req, res) => {
     const {
       firstName,
@@ -44,6 +48,7 @@ router.post(
           email,
           expireDate,
           type,
+          codee: req.codee,
           pin,
           img: req.body.img,
         })
@@ -61,6 +66,7 @@ router.post(
           type,
           gender,
           email,
+          codee: req.codee,
           expireDate,
           pin,
         })
@@ -73,6 +79,26 @@ router.post(
       status: 'error',
       error: 'Cannot register user at the moment',
     })
+  })
+)
+router.post(
+  '/verifycode',
+  asyncHandler(async (req, res) => {
+    const { code, number } = req.body
+    const user = await User.findOne({ number })
+    if (user.codee === code) {
+      user.confirmation = true
+      await user.save()
+      res.status(200).json({
+        number: user.number,
+        firstName: user.firstName,
+        lastName: user.lastName,
+        type: user.type,
+        token: generateToken(user._id),
+      })
+    } else {
+      return res.status(403).json({ message: 'Wronge code!' })
+    }
   })
 )
 

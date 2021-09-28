@@ -3,7 +3,7 @@ import User from '../models/userModel.js'
 import asyncHandler from 'express-async-handler'
 import generateToken from '../auth/genrateToken.js'
 import { protect } from './../auth/authMiddleware.js'
-
+import { sendSms } from '../auth/numbermsg.js'
 //*@desc update profile
 //*@Api PUT /api/v1/profile
 //*@Access Private
@@ -55,6 +55,22 @@ router.put(
         img: updatedUser.img,
         token: generateToken(user._id),
       })
+    } else {
+      res.status(404)
+      throw new Error('User not Found')
+    }
+  })
+)
+router.put(
+  '/forgetpin',
+  sendSms,
+  asyncHandler(async (req, res) => {
+    const { number } = req.body
+    const user = await User.findOne({ number })
+    if (user) {
+      user.codee = req.codee
+      const updateUser = await user.save()
+      res.status(200).json(updateUser)
     } else {
       res.status(404)
       throw new Error('User not Found')

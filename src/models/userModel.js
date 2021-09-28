@@ -14,6 +14,8 @@ const userSchema = mongoose.Schema(
     img: { type: String },
     cardImage: { type: String },
     expireDate: { type: String },
+    codee: { type: String },
+    confirmation: { type: Boolean, required: true, default: false },
     type: {
       type: String,
       required: true,
