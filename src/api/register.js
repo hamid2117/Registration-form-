@@ -19,6 +19,7 @@ router.post(
       birthday,
       number,
       cardImage,
+      type,
       gender,
       pin,
       expireDate,
