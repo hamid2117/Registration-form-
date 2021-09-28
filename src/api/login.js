@@ -17,7 +17,7 @@ router.post(
 
     if (!user) return res.status(400).json({ message: 'User is not found !' })
 
-    if (user && pin && pin === user.pin) {
+    if (user && pin && (await user.matchpin(pin))) {
       res.json({
         number: user.number,
         firstName: user.firstName,

@@ -42,6 +42,7 @@ router.post(
           gender,
           email,
           expireDate,
+          type,
           pin,
           img: req.body.img,
         })
@@ -56,6 +57,7 @@ router.post(
           cardImage,
           birthday,
           city,
+          type,
           gender,
           email,
           expireDate,

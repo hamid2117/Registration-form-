@@ -1,3 +1,5 @@
+import bcrypt from 'bcryptjs'
+
 const user = [
   {
     firstName: 'Muhammad',
@@ -8,7 +10,7 @@ const user = [
     number: '+9234234324',
     gender: 'Male',
     expireDate: '2/2/2024',
-    pin: 1245,
+    pin: bcrypt.hashSync('1234', 10),
   },
   {
     firstName: 'Hamid',
@@ -19,7 +21,7 @@ const user = [
     city: 'Lahore',
     gender: 'Male',
     expireDate: '2/2/2024',
-    pin: 1245,
+    pin: bcrypt.hashSync('1234', 10),
   },
 ]
 
