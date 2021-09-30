@@ -83,6 +83,7 @@ router.post(
       email,
       birthday,
       pin: '1234',
+      type: 'member',
       number,
       city,
       confirmation: true,
